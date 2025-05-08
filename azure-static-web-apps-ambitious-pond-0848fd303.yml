@@ -20,17 +20,27 @@ jobs:
   steps:
   - checkout: self
     submodules: true
+
   - task: NodeTool@0
     inputs:
-      versionSpec: '16.x'
+      versionSpec: '16.x'  # Ensure the Node.js version matches your app's requirements
     displayName: 'Install Node.js'
 
   - script: |
-      npm install
-      ng build --prod
-    displayName: 'Build Angular app'
-    
+      npm install  # Install project dependencies defined in package.json
+    displayName: 'Install dependencies'
+
   - script: |
-      # You can add any browsing task or other steps here
-      echo "Build complete. You can now browse the output."
-    displayName: 'Browse output (optional)'
+      npm run build  # Build Angular app (uses the "build" script defined in package.json)
+    displayName: 'Build Angular app'
+
+  # Optional: If you want to run tests (uncomment if needed)
+  # - script: |
+  #     npm run test  # Run Angular tests (uses the "test" script defined in package.json)
+  #   displayName: 'Run Angular tests'
+  
+  # Optional: Browsing the output (local preview) – you can add further steps to run tests or any tasks
+  # - script: |
+  #     echo "Build completed, you can browse the output locally or deploy it."
+  #   displayName: 'Browse output (optional)'
+
