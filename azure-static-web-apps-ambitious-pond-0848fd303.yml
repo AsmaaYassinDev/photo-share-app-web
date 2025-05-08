@@ -4,6 +4,7 @@ pr:
   branches:
     include:
       - master
+
 trigger:
   branches:
     include:
@@ -16,31 +17,33 @@ jobs:
   pool:
     vmImage: ubuntu-latest
   variables:
-  - group: Azure-Static-Web-Apps-ambitious-pond-0848fd303-variable-group
+    - group: Azure-Static-Web-Apps-ambitious-pond-0848fd303-variable-group
   steps:
-  - checkout: self
-    submodules: true
+    - checkout: self
+      submodules: true
 
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '16.x'  # Ensure the Node.js version matches your app's requirements
-    displayName: 'Install Node.js'
+    # Install Node.js
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '16.x'  # Ensure the Node.js version matches your app's requirements
+      displayName: 'Install Node.js'
 
-  - script: |
-      npm install  # Install project dependencies defined in package.json
-    displayName: 'Install dependencies'
+    # Install dependencies
+    - script: |
+        npm install  # Install project dependencies defined in package.json
+      displayName: 'Install dependencies'
 
-  - script: |
-      npm run build  # Build Angular app (uses the "build" script defined in package.json)
-    displayName: 'Build Angular app'
+    # Build Angular app
+    - script: |
+        npm run build  # Build Angular app (uses the "build" script defined in package.json)
+      displayName: 'Build Angular app'
 
-  # Optional: If you want to run tests (uncomment if needed)
-  # - script: |
-  #     npm run test  # Run Angular tests (uses the "test" script defined in package.json)
-  #   displayName: 'Run Angular tests'
-  
-  # Optional: Browsing the output (local preview) – you can add further steps to run tests or any tasks
-  # - script: |
-  #     echo "Build completed, you can browse the output locally or deploy it."
-  #   displayName: 'Browse output (optional)'
-
+     # Deploy to Azure Static Web App
+    - task: AzureStaticWebApp@0
+      inputs:
+        azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)  # Ensure token is passed here
+        skip_deploy_on_missing_secrets: true
+        app_location: "/"  # Set to the root of your Angular app
+        api_location: ""   # Set to "" if you do not have an API
+        output_location: "dist/photo-share-app"  # Path to the build output (from Angular build)
+      displayName: 'Deploy to Azure Static Web App'
