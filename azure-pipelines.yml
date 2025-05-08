@@ -1,0 +1,32 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli
+    npm install
+    ng build --prod
+  displayName: 'npm install and build'
+
+# Add step to deploy Angular app to Azure App Service (assuming you're using Azure App Service)
+# Add step to deploy Angular app to Azure App Service (assuming you're using Azure App Service)
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Azure for Students'  # Ensure this is the correct service connection in Azure DevOps
+    appName: 'photo-share-app-web'  # Name of your Azure App Service
+    package: '$(Build.ArtifactStagingDirectory)/dist/photo-share-app'  # Adjusted to point to the Angular build folder
+    appType: 'webApp'  # Indicate that this is a web app
+  displayName: 'Deploy Angular app to Azure App Service'
