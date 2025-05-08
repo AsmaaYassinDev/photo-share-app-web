@@ -45,5 +45,5 @@ jobs:
         skip_deploy_on_missing_secrets: true
         app_location: "/"  # Set to the root of your Angular app
         api_location: ""   # Set to "" if you do not have an API
-        output_location: "dist/photo-share-app-web"  # Path to the build output (from Angular build)
+        output_location: "dist/photo-share-app"  # Path to the build output (from Angular build)
       displayName: 'Deploy to Azure Static Web App'
