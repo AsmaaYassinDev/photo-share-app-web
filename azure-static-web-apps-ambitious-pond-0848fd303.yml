@@ -38,9 +38,10 @@ jobs:
         npm run build  # Build Angular app (uses the "build" script defined in package.json)
       displayName: 'Build Angular app'
 
-    # Deploy to Azure Static Web App
+     # Deploy to Azure Static Web App
     - task: AzureStaticWebApp@0
       inputs:
+        skip_deploy_on_missing_secrets: true
         app_location: "/"  # Set to the root of your Angular app
         api_location: ""   # Set to "" if you do not have an API
         output_location: "dist/photo-share-app-web"  # Path to the build output (from Angular build)
