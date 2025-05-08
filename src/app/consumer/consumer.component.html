@@ -1,0 +1,30 @@
+<div class="image-gallery">
+  <div *ngFor="let image of images" class="image-card">
+    <img [src]="image.imageUrl" alt="{{ image.title }}" />
+    <h3>{{ image.title }}</h3>
+    <p>{{ image.caption }}</p>
+    <p><strong>{{ image.location }}</strong></p>
+    
+    <!-- Add Comments and Ratings -->
+    <button (click)="getComments(image.id)">View Comments</button>
+    <button (click)="getAverageRating(image.id)">View Rating</button>
+
+    <!-- Comments Section -->
+    <div *ngIf="selectedImageId === image.id">
+      <div *ngFor="let comment of comments">
+        <p>{{ comment.text }}</p>
+      </div>
+      <input [(ngModel)]="newComment" placeholder="Add a comment" />
+      <button (click)="addComment()">Submit Comment</button>
+
+      <!-- Rating Section -->
+      <input type="number" [(ngModel)]="newRating" min="1" max="5" />
+      <button (click)="addRating()">Submit Rating</button>
+
+      <div>
+        <p>Average Rating: {{ averageRating }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
