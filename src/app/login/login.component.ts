@@ -16,10 +16,10 @@ export class LoginComponent {
   // Simulate login by setting the user role based on email and password (static values)
   login() {
     // Static values to simulate roles based on email
-    if (this.email === 'creator@example.com' && this.password === 'password123') {
+    if (this.email === 'creator@photo.com' && this.password === 'password123') {
       this.userService.setUserRole('creator');
       this.router.navigate(['/creator']);
-    } else if (this.email === 'consumer@example.com' && this.password === 'password123') {
+    } else if (this.email === 'consumer@photo.com' && this.password === 'password123') {
       this.userService.setUserRole('consumer');
       this.router.navigate(['/consumer']);
     } else {
