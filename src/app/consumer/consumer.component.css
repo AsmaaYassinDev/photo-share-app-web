@@ -205,3 +205,45 @@ hr.divider {
 .rating i:hover {
   color: #f1c40f;
 }
+/* Search Bar Styles */
+.search-bar {
+  max-width: 600px;
+  margin: 20px auto; /* Centers the search bar horizontally */
+  display: flex;
+  justify-content: center;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* On focus, change border and add a slight shadow */
+.search-bar input:focus {
+  outline: none;
+  border-color: #3498db; /* Blue border on focus */
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+}
+
+.search-bar input::placeholder {
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+/* Responsive design: Ensures the search bar is still usable on smaller screens */
+@media (max-width: 600px) {
+  .search-bar {
+    width: 90%;
+    margin: 10px;
+  }
+
+  .search-bar input {
+    padding: 10px 15px;
+  }
+}
