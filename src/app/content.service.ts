@@ -17,7 +17,7 @@ export interface ContentItem {
   providedIn: 'root'
 })
 export class ContentService {
-  private apiUrl = 'https://localhost:44348/api/Content';
+  private apiUrl = 'https://photoapp-contentservice-dqbjbvh0d2eyhabk.northeurope-01.azurewebsites.net/api/Content';
 
   constructor(private http: HttpClient) {}
 
