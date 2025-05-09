@@ -26,7 +26,7 @@ export interface Comment {
 })
 export class consumerService {
 
-  private apiUrl = 'https://localhost:44315/api/Comment';  // Replace with your actual API endpoint
+  private apiUrl = 'https://photoapp-contentinteractionservice-fzh6b6e7hbf5eqex.northeurope-01.azurewebsites.net/api/Comment';  // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) {}
 
