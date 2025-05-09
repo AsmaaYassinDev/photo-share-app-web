@@ -1,4 +1,5 @@
 <div class="consumer-container">
+  <!-- Section Title -->
   <div class="section-title">
     <h2>Browse and Interact with Images</h2>
   </div>
@@ -19,14 +20,14 @@
         <p>{{ photo.caption }}</p>
         <p><strong>Location:</strong> {{ photo.location }}</p>
 
-        <!-- Rating Component -->
-        <div class="rating">
-          <i *ngFor="let star of [1, 2, 3, 4, 5]" 
-             class="fa" 
-             [ngClass]="{'fa-star': star <= photo.rating, 'fa-star-o': star > photo.rating}"
-             (click)="rateImage(photo.id, star)"></i>
-        </div>
-      </div>
+        <!-- Simple Rating Component -->
+    <!-- Simple Rating Component -->
+     <div class="rating">
+  <span *ngFor="let star of [1, 2, 3, 4, 5]" 
+        (click)="rateImage(photo.id, star)">
+    <i class="fa" [ngClass]="{'fa-star': star <= photo.rating, 'fa-star-o': star > photo.rating}"></i>
+  </span>
+</div>
 
       <!-- Comments Section -->
       <div class="comments-section">
@@ -39,7 +40,7 @@
 
         <!-- Add Comment -->
         <textarea [(ngModel)]="newComment" placeholder="Add a comment..."></textarea>
-        <button (click)="addComment(photo.id)">Post Comment</button>
+        <button class="btn" (click)="addComment(photo.id)">Post Comment</button>
       </div>
     </div>
   </div>
@@ -48,4 +49,9 @@
   <div *ngIf="photos.length === 0" class="no-photos-message">
     No photos available.
   </div>
+</div>
+
+<!-- Logout Section -->
+<div class="logout-section">
+  <button (click)="logout()" class="btn btn-primary logout-btn">Logout</button>
 </div>

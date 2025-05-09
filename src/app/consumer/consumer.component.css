@@ -4,7 +4,7 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
-/* Consumer container with background gradient */
+/* Login container with background gradient */
 .consumer-container {
   background: linear-gradient(to right, #3498db, #8e44ad);
   padding: 20px;
@@ -20,17 +20,34 @@ body {
   text-align: center;
 }
 
-/* Form Styles for Consumer */
-.search-bar {
+/* Form Styles */
+.upload-form {
   max-width: 500px;
-  margin: 0 auto 20px;
-  padding: 10px;
+  margin: 0 auto;
+  padding: 15px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.search-bar input {
+.upload-form:hover {
+  transform: translateY(-3px);
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  color: #34495e;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-control {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -38,9 +55,52 @@ body {
   background-color: #f8f9fa;
   color: #2c3e50;
   font-size: 0.9rem;
+  transition: border-color 0.3s ease;
 }
 
-/* Photo Grid Styles for Consumer */
+.form-control:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.form-control-file {
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #f1f1f1;
+  color: #2c3e50;
+}
+
+/* Button Styles */
+button.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #2980b9;
+}
+
+button.btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Divider Line */
+hr.divider {
+  margin: 20px 0;
+  border: 1px solid #eee;
+}
+
+/* Photo Grid Styles */
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Compact grid */
@@ -94,85 +154,54 @@ body {
   margin: 5px 0;
 }
 
-/* Rating Stars */
-.rating {
-  display: flex;
-  gap: 5px;
+.no-photos-message {
+  text-align: center;
+  font-size: 1rem;
+  color: #7f8c8d;
+  font-weight: 600;
+  margin-top: 20px;
 }
 
+/* Absolute positioning for the logout button */
+.logout-section {
+  position: absolute;       /* Position relative to the page */
+  top: 20px;                /* Distance from the top of the page */
+  right: 20px;              /* Distance from the right edge of the page */
+}
+
+/* Logout button: compact size */
+.logout-btn {
+  background-color: #007bff;    /* Blue color */
+  color: white;                 /* White text */
+  border: none;                 /* No border */
+  padding: 6px 12px;            /* Small padding */
+  font-size: 14px;              /* Font size */
+  cursor: pointer;             /* Pointer cursor on hover */
+  border-radius: 5px;           /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  width: auto;                  /* Button size adjusts based on content */
+}
+
+/* Hover effect for the logout button */
+.logout-btn:hover {
+  background-color: #0056b3;    /* Darker blue on hover */
+}
+
+/* Focus effect to remove outline */
+.logout-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); /* Light blue outline */
+}
 .rating i {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  color: #f39c12;
   cursor: pointer;
-  color: #f1c40f; /* Gold color */
-}
-
-.rating i.fa-star {
-  color: #f39c12; /* Filled star */
 }
 
 .rating i.fa-star-o {
-  color: #bdc3c7; /* Empty star */
+  color: #ccc;
 }
 
-/* Comments Section */
-.comments-section {
-  margin-top: 15px;
-}
-
-.comments-section h5 {
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.comments-section ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.comments-section li {
-  margin-bottom: 10px;
-}
-
-.comments-section li strong {
-  color: #2c3e50;
-}
-
-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f8f9fa;
-  color: #2c3e50;
-  font-size: 0.9rem;
-  margin-top: 10px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #3498db;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-}
-
-button:hover {
-  background-color: #2980b9;
-}
-
-button:disabled {
-  background-color: #95a5a6;
-  cursor: not-allowed;
-}
-
-/* Divider Line */
-hr.divider {
-  margin: 20px 0;
-  border: 1px solid #eee;
+.rating i:hover {
+  color: #f1c40f;
 }
