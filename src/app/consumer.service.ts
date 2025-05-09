@@ -1,61 +1,50 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-//import { environment } from 'src/environments/environment'; // Assuming you have an environment file to store base API URL
 
-interface Comment {
-  id: string;
-  userId: string;
-  imageId: string;
+export interface Comment {
+  username: string;
   text: string;
   createdAt: string;
-  imageTitle: string;
-  imageCaption: string;
-  imageLocation: string;
 }
 
-interface Rating {
+export interface Photo {
   id: string;
-  userId: string;
-  imageId: string;
-  ratingValue: number;
-  createdAt: string;
-  imageTitle: string;
-  imageCaption: string;
-  imageLocation: string;
+  title: string;
+  caption: string;
+  location: string;
+  mediaUrl: string;
+  tags: string[];
+  uploadDate: string;
+  comments: Comment[];
+  rating: number;
 }
-
 @Injectable({
   providedIn: 'root'
 })
-export class ConsumerService {
-
-private apiUrl = 'http://localhost:5000/api/image';  // Replace with your backend API URL
+export class consumerService {
+  private apiUrl = 'https://your-api-url.com';  // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 
-  // Fetch all images from the backend API
-  getAllImages(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  // Fetch all photos with comments and ratings
+  getPhotosWithCommentsAndRatings(): Observable<Photo[]> {
+    return this.http.get<Photo[]>(`${this.apiUrl}/photos`);
   }
 
-  // Fetch comments for a specific image
-  getComments(imageId: string): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:5000/api/comment/${imageId}`);
+  // Search photos based on query
+  searchPhotos(query: string): Observable<Photo[]> {
+    return this.http.get<Photo[]>(`${this.apiUrl}/photos/search?query=${query}`);
   }
 
-  // Fetch the average rating for a specific image
-  getAverageRating(imageId: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:5000/api/rating/${imageId}/average`);
+  // Add a new comment to an image
+  addComment(comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(`${this.apiUrl}/comments`, comment);
   }
 
-  // Add a new comment
-  addComment(comment: any): Observable<any> {
-    return this.http.post<any>('http://localhost:5000/api/comment', comment);
+  // Rate an image
+  rateImage(imageId: string, rating: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/photos/${imageId}/rate`, { rating });
   }
 
-  // Add a new rating
-  addRating(rating: any): Observable<any> {
-    return this.http.post<any>('http://localhost:5000/api/rating', rating);
-  }
 }

@@ -1,82 +1,70 @@
-import { Component } from '@angular/core';
-import {  OnInit } from '@angular/core';
-import { ConsumerService } from '../consumer.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
+import { consumerService } from '../consumer.service';
+import{Photo} from '../consumer.service'
+
 @Component({
   selector: 'app-consumer',
   templateUrl: './consumer.component.html',
   styleUrls: ['./consumer.component.css']
 })
-export class ConsumerComponent {
+export class ConsumerComponent  implements OnInit {
+ photos: Photo[] = []; // Explicitly define type as Photo[]
+ newComment: string = '';
+  stars: boolean[] = [false, false, false, false, false]; // Representing stars 1-5
+searchQuery: string = '';  // Store the search query
 
-  images: any[] = [];  // Array to hold all images
-  comments: any[] = [];
-  averageRating: number = 0;
-  newComment: string = '';
-  newRating: number = 1;  // Default rating
-  selectedImageId: string = '';  // Track the selected image ID for comments/ratings
-
-  constructor(private contentService: ConsumerService, private router: Router) { }
+  constructor(private consumerService: consumerService) {}
 
   ngOnInit(): void {
-    this.getAllImages();  // Fetch all images on component init
+    this.fetchPhotos();
   }
 
-  // Fetch all images from the backend
-  getAllImages(): void {
-    this.contentService.getAllImages().subscribe((images) => {
-      this.images = images;
+  fetchPhotos(): void {
+    this.consumerService.getPhotosWithCommentsAndRatings().subscribe((data: Photo[]) => { // Specify the type here
+      this.photos = data.map(photo => ({
+        ...photo,
+        comments: photo.comments || [],
+        rating: photo.rating || 0 // Add rating to photo object
+      }));
     });
   }
 
-  // Fetch comments for the current image
-  getComments(imageId: string): void {
-    this.selectedImageId = imageId;  // Set the selected image ID
-    this.contentService.getComments(imageId).subscribe((comments) => {
-      this.comments = comments;
-    });
+  addComment(imageId: string): void {
+    if (this.newComment.trim()) {
+      const comment = {
+        imageId: imageId,
+        text: this.newComment.trim(),
+        username: 'Consumer User',
+        createdAt: new Date().toISOString()
+      };
+
+      this.consumerService.addComment(comment).subscribe((response) => {
+        const photo = this.photos.find(photo => photo.id === imageId);
+        if (photo) {
+          photo.comments.push(response);
+          this.newComment = ''; // Clear input after posting
+        }
+      });
+    }
   }
 
-  // Fetch the average rating for the current image
-  getAverageRating(imageId: string): void {
-    this.selectedImageId = imageId;  // Set the selected image ID
-    this.contentService.getAverageRating(imageId).subscribe((averageRating) => {
-      this.averageRating = averageRating;
+  rateImage(imageId: string, rating: number): void {
+    this.consumerService.rateImage(imageId, rating).subscribe((response) => {
+      const photo = this.photos.find(photo => photo.id === imageId);
+      if (photo) {
+        photo.rating = rating; // Update the photo's rating
+      }
     });
   }
-
-  // Add a new comment for the selected image
-  addComment(): void {
-    const comment = {
-      userId: 'sample-user-id',  // Assuming you have a way to get the real user ID
-      imageId: this.selectedImageId,
-      text: this.newComment,
-      createdAt: new Date().toISOString(),
-      imageTitle: 'Sample Image',  // You may replace this with actual data
-      imageCaption: 'Sample Caption',  // You may replace this with actual data
-      imageLocation: 'Sample Location',  // You may replace this with actual data
-    };
-
-    this.contentService.addComment(comment).subscribe(() => {
-      this.getComments(this.selectedImageId);  // Refresh the comments list
-      this.newComment = '';  // Clear the comment input
-    });
-  }
-
-  // Add a new rating for the selected image
-  addRating(): void {
-    const rating = {
-      userId: 'sample-user-id',  // Assuming you have a way to get the real user ID
-      imageId: this.selectedImageId,
-      ratingValue: this.newRating,
-      createdAt: new Date().toISOString(),
-      imageTitle: 'Sample Image',  // You may replace this with actual data
-      imageCaption: 'Sample Caption',  // You may replace this with actual data
-      imageLocation: 'Sample Location',  // You may replace this with actual data
-    };
-
-    this.contentService.addRating(rating).subscribe(() => {
-      this.getAverageRating(this.selectedImageId);  // Refresh the average rating
-    });
+   // Search photos based on query
+  searchPhotos(): void {
+    if (this.searchQuery.trim()) {
+      this.consumerService.searchPhotos(this.searchQuery).subscribe((data: Photo[]) => {
+        this.photos = data;
+      });
+    } else {
+      this.fetchPhotos(); // Fetch all photos if the search query is empty
+    }
   }
 }

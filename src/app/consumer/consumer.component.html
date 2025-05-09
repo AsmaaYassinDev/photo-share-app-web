@@ -1,30 +1,51 @@
-<div class="image-gallery">
-  <div *ngFor="let image of images" class="image-card">
-    <img [src]="image.imageUrl" alt="{{ image.title }}" />
-    <h3>{{ image.title }}</h3>
-    <p>{{ image.caption }}</p>
-    <p><strong>{{ image.location }}</strong></p>
-    
-    <!-- Add Comments and Ratings -->
-    <button (click)="getComments(image.id)">View Comments</button>
-    <button (click)="getAverageRating(image.id)">View Rating</button>
+<div class="consumer-container">
+  <div class="section-title">
+    <h2>Browse and Interact with Images</h2>
+  </div>
 
-    <!-- Comments Section -->
-    <div *ngIf="selectedImageId === image.id">
-      <div *ngFor="let comment of comments">
-        <p>{{ comment.text }}</p>
+  <!-- Search Bar for Consumer to search through images -->
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search images..." (input)="searchPhotos()">
+  </div>
+
+  <!-- Display images in a grid -->
+  <div class="photo-grid">
+    <div class="photo-card" *ngFor="let photo of photos">
+      <div class="card-content">
+        <img class="photo-img" [src]="photo.mediaUrl" [alt]="photo.title" />
       </div>
-      <input [(ngModel)]="newComment" placeholder="Add a comment" />
-      <button (click)="addComment()">Submit Comment</button>
+      <div class="photo-info">
+        <h4>{{ photo.title }}</h4>
+        <p>{{ photo.caption }}</p>
+        <p><strong>Location:</strong> {{ photo.location }}</p>
 
-      <!-- Rating Section -->
-      <input type="number" [(ngModel)]="newRating" min="1" max="5" />
-      <button (click)="addRating()">Submit Rating</button>
+        <!-- Rating Component -->
+        <div class="rating">
+          <i *ngFor="let star of [1, 2, 3, 4, 5]" 
+             class="fa" 
+             [ngClass]="{'fa-star': star <= photo.rating, 'fa-star-o': star > photo.rating}"
+             (click)="rateImage(photo.id, star)"></i>
+        </div>
+      </div>
 
-      <div>
-        <p>Average Rating: {{ averageRating }}</p>
+      <!-- Comments Section -->
+      <div class="comments-section">
+        <h5>Comments</h5>
+        <ul>
+          <li *ngFor="let comment of photo.comments">
+            <strong>{{ comment.username }}:</strong> {{ comment.text }}
+          </li>
+        </ul>
+
+        <!-- Add Comment -->
+        <textarea [(ngModel)]="newComment" placeholder="Add a comment..."></textarea>
+        <button (click)="addComment(photo.id)">Post Comment</button>
       </div>
     </div>
   </div>
-</div>
 
+  <!-- No photos message (if applicable) -->
+  <div *ngIf="photos.length === 0" class="no-photos-message">
+    No photos available.
+  </div>
+</div>
