@@ -1,8 +1,21 @@
-/* Main Section Titles */
+/* General Styles */
+body {
+  background-color: #f4f7fa;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Login container with background gradient */
+.login-container {
+  background: linear-gradient(to right, #3498db, #8e44ad);
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* Section Titles */
 .section-title {
   font-size: 1.6rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: #fff;
   margin-bottom: 15px;
   text-align: center;
 }
@@ -58,6 +71,7 @@
   color: #2c3e50;
 }
 
+/* Button Styles */
 button.btn {
   width: 100%;
   padding: 12px;
@@ -80,6 +94,7 @@ button.btn:disabled {
   cursor: not-allowed;
 }
 
+/* Divider Line */
 hr.divider {
   margin: 20px 0;
   border: 1px solid #eee;
@@ -146,6 +161,7 @@ hr.divider {
   font-weight: 600;
   margin-top: 20px;
 }
+
 /* Absolute positioning for the logout button */
 .logout-section {
   position: absolute;       /* Position relative to the page */
@@ -175,4 +191,32 @@ hr.divider {
 .logout-btn:focus {
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); /* Light blue outline */
+}
+/* Form Styles */
+.upload-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.upload-form .form-control {
+  width: 100%; /* This keeps the text box full width inside the container */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  box-sizing: border-box; /* Ensures padding doesn't cause overflow */
+  transition: border-color 0.3s ease;
+}
+
+/* If you want to make the form controls smaller, adjust the padding or set a max-width */
+.upload-form .form-control {
+  padding: 8px;  /* Adjust padding for smaller size */
+  max-width: 400px; /* Set a specific max width for the text boxes */
 }

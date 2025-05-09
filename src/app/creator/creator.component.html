@@ -1,62 +1,62 @@
-<h2 class="section-title">Upload New Photo</h2>
-<!-- Logout Section -->
+<div class="login-container">
+  <h2 class="section-title">Upload New Photo</h2>
 
-<!-- Media Upload Form -->
-<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="upload-form">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" id="title" formControlName="title" placeholder="Title" class="form-control" />
-  </div>
+  <!-- Media Upload Form -->
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="upload-form">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" formControlName="title" placeholder="Title" class="form-control" />
+    </div>
 
-  <div class="form-group">
-    <label for="caption">Caption</label>
-    <input type="text" id="caption" formControlName="caption" placeholder="Caption" class="form-control" />
-  </div>
+    <div class="form-group">
+      <label for="caption">Caption</label>
+      <input type="text" id="caption" formControlName="caption" placeholder="Caption" class="form-control" />
+    </div>
 
-  <div class="form-group">
-    <label for="location">Location</label>
-    <input type="text" id="location" formControlName="location" placeholder="Location" class="form-control" />
-  </div>
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" formControlName="location" placeholder="Location" class="form-control" />
+    </div>
 
-  <div class="form-group">
-    <label for="tags">Tags</label>
-    <input type="text" id="tags" formControlName="tags" placeholder="Tags (comma-separated)" class="form-control" />
-  </div>
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <input type="text" id="tags" formControlName="tags" placeholder="Tags (comma-separated)" class="form-control" />
+    </div>
 
-  <div class="form-group file-upload">
-    <label for="mediaFile">Select Media</label>
-    <input type="file" id="mediaFile" (change)="onFileSelected($event)" class="form-control-file" accept=".jpg,.jpeg,.png" />
+    <div class="form-group file-upload">
+      <label for="mediaFile">Select Media</label>
+      <input type="file" id="mediaFile" (change)="onFileSelected($event)" class="form-control-file" accept=".jpg,.jpeg,.png" />
+    </div>
 
-  </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!uploadForm.valid">Upload</button>
+  </form>
 
-  <button type="submit" class="btn btn-primary" [disabled]="!uploadForm.valid">Upload</button>
-</form>
+  <hr class="divider" />
 
-<hr class="divider" />
+  <!-- Uploaded Media Grid -->
+  <h2 class="section-title">Your Uploaded Media</h2>
 
-<!-- Uploaded Media Grid -->
-<h2 class="section-title">Your Uploaded Media</h2>
-
-<div class="photo-grid" *ngIf="photos.length > 0; else noPhotos">
-  <div class="photo-card" *ngFor="let photo of photos">
-    <div class="card-content">
-      <img [src]="photo.mediaUrl" [alt]="photo.title" class="photo-img" />
-      <div class="photo-info">
-        <h4>{{ photo.title }}</h4>
-        <p>{{ photo.caption }}</p>
-        <p><strong>Location:</strong> {{ photo.location }}</p>
-        <p><strong>Tags:</strong> {{ photo.tags.join(', ') }}</p>
-        <p><small>Uploaded: {{ photo.uploadDate | date:'short' }}</small></p>
+  <div class="photo-grid" *ngIf="photos.length > 0; else noPhotos">
+    <div class="photo-card" *ngFor="let photo of photos">
+      <div class="card-content">
+        <img [src]="photo.mediaUrl" [alt]="photo.title" class="photo-img" />
+        <div class="photo-info">
+          <h4>{{ photo.title }}</h4>
+          <p>{{ photo.caption }}</p>
+          <p><strong>Location:</strong> {{ photo.location }}</p>
+          <p><strong>Tags:</strong> {{ photo.tags.join(', ') }}</p>
+          <p><small>Uploaded: {{ photo.uploadDate | date:'short' }}</small></p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<ng-template #noPhotos>
-    
-  <p class="no-photos-message">No content uploaded yet. Start by uploading your first media!</p>
-</ng-template>
+  <ng-template #noPhotos>
+    <p class="no-photos-message">No content uploaded yet. Start by uploading your first media!</p>
+  </ng-template>
 
-<div class="logout-section">
-  <button (click)="logout()" class="btn btn-primary logout-btn">Logout</button>
+  <!-- Logout Section -->
+  <div class="logout-section">
+    <button (click)="logout()" class="btn btn-primary logout-btn">Logout</button>
+  </div>
 </div>
