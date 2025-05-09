@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from './user.service';
 import { CreatorComponent } from './creator/creator.component';
 import { ConsumerComponent } from './consumer/consumer.component'; // Import the UserService
-
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +20,8 @@ import { ConsumerComponent } from './consumer/consumer.component'; // Import the
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [UserService],  // Provide the UserService
   bootstrap: [AppComponent],
